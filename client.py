@@ -6,9 +6,19 @@ PORT = 5050
 FORMAT='utf-8'
 DISCONNECT_MSG = "#dc"
 SERVER = "192.168.1.125"
+
+
+newip = input("Connect to ip (blank for default): ")
+
+if newip == '':
+    pass
+else:
+    SERVER = newip 
+
 ADDR = (SERVER,PORT)
 
 client = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+print("Connecting...")
 client.connect(ADDR)
 
 
@@ -47,7 +57,7 @@ def endProgram():
 userID = int()
 client.recv(HEADER).decode(FORMAT)
 userID = client.recv(HEADER).decode(FORMAT)
-print("MY ID IS "+userID)
+print("Connection successful... MY ID IS "+userID)
 
 listening_thread = threading.Thread(target=listening)
 listening_thread.start()
